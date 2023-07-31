@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BACKEND_URL } from "../constants";
 
 import "../signup.css";
 
@@ -26,8 +27,7 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url =
-        "http://ec2-15-185-195-60.me-south-1.compute.amazonaws.com:4000/auth/signup";
+      const url = `${BACKEND_URL}/auth/signup`;
       const res = await axios.post(url, data);
       navigate(`/otp/+973${data.phoneNumber}`);
       console.log(res);

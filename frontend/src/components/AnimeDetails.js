@@ -9,6 +9,7 @@ import Loading from "./Loading";
 import AnimeList from "./AnimeList";
 import { CSSTransition } from "react-transition-group";
 import jwtDecode from "jwt-decode";
+import { BACKEND_URL } from "../constants";
 
 export default function AnimeDetails(props) {
   const location = useLocation();
@@ -40,7 +41,7 @@ export default function AnimeDetails(props) {
     if (!isFave) {
       try {
         const res = await axios.post(
-          `http://ec2-15-185-195-60.me-south-1.compute.amazonaws.com:4000/list/${user.user.favListId}/addItem`,
+          `${BACKEND_URL}/list/${user.user.favListId}/addItem`,
           animeDetail,
           {
             headers: {
@@ -62,7 +63,7 @@ export default function AnimeDetails(props) {
     } else {
       try {
         const res = await axios.post(
-          `http://ec2-15-185-195-60.me-south-1.compute.amazonaws.com:4000/list/${user.user.favListId}/removeItem`,
+          `${BACKEND_URL}/list/${user.user.favListId}/removeItem`,
           {
             mal_id: animeDetail.mal_id,
           },
@@ -94,7 +95,7 @@ export default function AnimeDetails(props) {
     console.log(user);
 
     const res = await axios.get(
-      `http://ec2-15-185-195-60.me-south-1.compute.amazonaws.com:4000/list/${user.user.favListId}/items`,
+      `${BACKEND_URL}/list/${user.user.favListId}/items`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../constants";
 
 export default function App() {
   const [otp, setOtp] = useState("");
@@ -16,8 +17,7 @@ export default function App() {
   console.log(phoneNumber);
 
   const handleClick = () => {
-    const url =
-      "http://ec2-15-185-195-60.me-south-1.compute.amazonaws.com:4000/auth/verify/phone";
+    const url = `${BACKEND_URL}/auth/verify/phone`;
 
     axios
       .post(url, { phoneNumber: phoneNumber, otp: otp })
@@ -35,8 +35,7 @@ export default function App() {
   }, [otp]);
 
   useEffect(() => {
-    const url =
-      "http://ec2-15-185-195-60.me-south-1.compute.amazonaws.com:4000/auth/send/otp";
+    const url = `${BACKEND_URL}/auth/send/otp`;
 
     axios
       .post(url, { phoneNumber: phoneNumber })

@@ -4,6 +4,7 @@ import { useState } from "react";
 import CardsCarousel from "./CardsCarousel";
 import { useEffect } from "react";
 import Loading from "./Loading";
+import { BACKEND_URL } from "../constants";
 
 export default function Movie() {
   const [movie, setMovie] = useState({});
@@ -32,9 +33,7 @@ export default function Movie() {
     ].sort(() => Math.random() - 0.5);
 
     const requests = genres.map((genre) =>
-      axios.get(
-        `http://ec2-15-185-195-60.me-south-1.compute.amazonaws.com:4000/movie/${genre}`
-      )
+      axios.get(`${BACKEND_URL}/movie/${genre}`)
     );
 
     Promise.all(requests)

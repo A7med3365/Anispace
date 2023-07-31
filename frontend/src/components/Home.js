@@ -4,6 +4,7 @@ import CardsCarousel from "./CardsCarousel";
 import Loading from "./Loading";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { BACKEND_URL } from "../constants";
 
 export default function Home(props) {
   const [airingAnimeList, setAiringAnimeList] = useState([]);
@@ -17,14 +18,11 @@ export default function Home(props) {
       const user = jwtDecode(token);
 
       axios
-        .get(
-          `http://ec2-15-185-195-60.me-south-1.compute.amazonaws.com:4000/list/${user.user.favListId}/items`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
+        .get(`${BACKEND_URL}/list/${user.user.favListId}/items`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((res) => {
           console.log(res.data);
           setFaveAnimeList(res.data.items);
